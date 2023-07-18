@@ -18,11 +18,11 @@
 
 package org.presto.plugin.events.mapper;
 
+import com.facebook.airlift.log.Logger;
 import com.facebook.presto.spi.eventlistener.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import io.airlift.log.Logger;
 
 import java.util.Optional;
 
@@ -74,7 +74,7 @@ public class CustomObjectMapper extends PrestoObjectMapper {
         ArrayNode inputList = root.putArray("inputs");
         for (QueryInputMetadata queryInputMetadata: queryCompletedEvent.getIoMetadata().getInputs()) {
             ObjectNode node = objectMapper.createObjectNode();
-            node.put("connector_id", queryInputMetadata.getConnectorId());
+            // node.put("connectorInfo", queryInputMetadata.getConnectorInfo());
             node.put("schema", queryInputMetadata.getSchema());
             node.put("table", queryInputMetadata.getTable());
 

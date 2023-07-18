@@ -3,15 +3,15 @@
 
     <groupId>org.presto.plugin.events</groupId>
     <artifactId>presto-event-listener-plugin</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <properties>
-        <presto.version>0.209</presto.version>
+        <presto.version>0.286</presto.version>
+        <airlift.version>0.205</airlift.version>
         <guava.version>21.0</guava.version>
         <jackson.version>2.8.1</jackson.version>
-        <airlift.version>0.148</airlift.version>
-        <kafka.version>1.0.0</kafka.version>
+        <kafka.version>2.4.1</kafka.version>
     </properties>
 
     <dependencies>
@@ -21,34 +21,35 @@
             <version>${kafka.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.facebook.airlift</groupId>
+            <artifactId>log</artifactId>
+            <version>${airlift.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.facebook.presto</groupId>
             <artifactId>presto-spi</artifactId>
             <version>${presto.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.airlift</groupId>
-            <artifactId>log</artifactId>
-            <version>${airlift.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>${jackson.version}</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.version}</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 
@@ -82,19 +83,6 @@
                     <source>8</source>
                     <target>8</target>
                 </configuration>
-            </plugin>
-            <!--Add the below plugin since it is present in the main presto pom -->
-            <plugin>
-                <groupId>com.facebook.presto</groupId>
-                <artifactId>presto-maven-plugin</artifactId>
-                <version>0.3</version>
-                <extensions>true</extensions>
-            </plugin>
-            <plugin>
-                <groupId>io.takari.maven.plugins</groupId>
-                <artifactId>provisio-maven-plugin</artifactId>
-                <version>0.1.40</version>
-                <extensions>true</extensions>
             </plugin>
         </plugins>
     </build>

@@ -18,14 +18,18 @@
 
 package org.presto.plugin.events.writer;
 
+import com.facebook.airlift.log.Logger;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+
 
 import java.util.Map;
 import java.util.Properties;
 
 public class KafkaWriter implements EventWriter {
+    private static final Logger log = Logger.get(KafkaWriter.class);
     private Producer<String, String> producer;
     String topicName;
 
@@ -49,6 +53,11 @@ public class KafkaWriter implements EventWriter {
 
     @Override
     public void write(String content) {
-        producer.send(new ProducerRecord<String,String>(topicName, content));
+        try {
+            RecordMetadata recordMetadata = producer.send(new ProducerRecord<String,String>(topicName, content)).get();
+            // log.info(recordMetadata.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

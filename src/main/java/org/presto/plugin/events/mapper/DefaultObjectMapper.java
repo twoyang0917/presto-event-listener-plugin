@@ -18,11 +18,12 @@
 
 package org.presto.plugin.events.mapper;
 
+import com.facebook.airlift.log.Logger;
 import com.facebook.presto.spi.eventlistener.QueryCompletedEvent;
 import com.facebook.presto.spi.eventlistener.QueryCreatedEvent;
 import com.facebook.presto.spi.eventlistener.SplitCompletedEvent;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.airlift.log.Logger;
+
 
 public class DefaultObjectMapper extends PrestoObjectMapper {
     private static final Logger log = Logger.get(DefaultObjectMapper.class);

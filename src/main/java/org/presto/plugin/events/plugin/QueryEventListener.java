@@ -18,6 +18,7 @@
 
 package org.presto.plugin.events.plugin;
 
+import com.facebook.airlift.log.Logger;
 import com.facebook.presto.spi.eventlistener.EventListener;
 import com.facebook.presto.spi.eventlistener.QueryCompletedEvent;
 import com.facebook.presto.spi.eventlistener.QueryCreatedEvent;
@@ -26,7 +27,6 @@ import org.presto.plugin.events.mapper.ObjectMapperFactory;
 import org.presto.plugin.events.mapper.PrestoObjectMapper;
 import org.presto.plugin.events.writer.EventWriter;
 import org.presto.plugin.events.writer.EventWriterFactory;
-import io.airlift.log.Logger;
 
 import java.util.Map;
 
@@ -37,15 +37,15 @@ import java.util.Map;
 public class QueryEventListener implements EventListener {
     private static final Logger log = Logger.get(QueryEventListener.class);
 
-    EventWriter queryCreated, queryCompleted, querySplitted;
+    EventWriter queryCompleted; // queryCreated, querySplitted;
     PrestoObjectMapper mapper;
 
     public QueryEventListener(Map<String, String> config) {
         log.info("Query Logger Event Listener Config: %s", config);
 
-        queryCreated = EventWriterFactory.getEventWriter(config, EventWriter.Event.Create);
         queryCompleted = EventWriterFactory.getEventWriter(config, EventWriter.Event.Complete);
-        querySplitted =  EventWriterFactory.getEventWriter(config, EventWriter.Event.Split);
+        // queryCreated = EventWriterFactory.getEventWriter(config, EventWriter.Event.Create);
+        // querySplitted =  EventWriterFactory.getEventWriter(config, EventWriter.Event.Split);
 
         ObjectMapperFactory factory = new ObjectMapperFactory();
         mapper = factory.getPrestoObjectMapper(config.get("mapper"));
@@ -57,11 +57,11 @@ public class QueryEventListener implements EventListener {
     }
 
     public void queryCreated(QueryCreatedEvent queryCreatedEvent) {
-        queryCreated.write(mapper.getQueryCreatedEvent(queryCreatedEvent));
+        // queryCreated.write(mapper.getQueryCreatedEvent(queryCreatedEvent));
     }
 
     public void splitCompleted(SplitCompletedEvent splitCompletedEvent) {
-        querySplitted.write(mapper.getQuerySplittedEvent(splitCompletedEvent));
+        // querySplitted.write(mapper.getQuerySplittedEvent(splitCompletedEvent));
     }
 
 }

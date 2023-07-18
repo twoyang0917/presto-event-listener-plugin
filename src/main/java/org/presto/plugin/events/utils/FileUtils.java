@@ -19,7 +19,7 @@
 package org.presto.plugin.events.utils;
 
 
-import io.airlift.log.Logger;
+import com.facebook.airlift.log.Logger;
 
 import java.io.File;
 import java.io.IOException;
